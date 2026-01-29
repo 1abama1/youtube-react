@@ -1,0 +1,156 @@
+.video-detail-container {
+    display: flex;
+    gap: 24px;
+}
+
+.video-content {
+    flex: 1;
+}
+
+.player-wrapper {
+    position: relative;
+    padding-top: 56.25%;
+    /* Player ratio: 100 / (16 / 9) */
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: black;
+}
+
+.react-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.detail-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 16px 0 12px;
+    color: var(--text-primary);
+}
+
+.video-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.channel-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.channel-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.channel-name-detail {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.subscriber-count {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.subscribe-btn {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-left: 12px;
+    transition: opacity 0.2s;
+}
+
+.subscribe-btn:hover {
+    opacity: 0.9;
+}
+
+.video-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    background-color: var(--bg-tertiary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #444;
+}
+
+.video-description {
+    background-color: var(--bg-tertiary);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+.description-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+.comments-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+}
+
+.add-comment {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.user-avatar-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.add-comment input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--bg-tertiary);
+    padding: 8px 0;
+    color: white;
+    outline: none;
+}
+
+.related-videos {
+    width: 400px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+    .video-detail-container {
+        flex-direction: column;
+    }
+
+    .related-videos {
+        width: 100%;
+    }
+}

@@ -1,0 +1,133 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 22px;
+    background-color: var(--accent-red);
+    border-radius: 4px;
+    position: relative;
+}
+
+.logo-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    border-left: 8px solid white;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+}
+
+.region-tag {
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    align-self: flex-start;
+    margin-top: 2px;
+}
+
+.header-center {
+    flex: 0 1 600px;
+    margin: 0 20px;
+}
+
+.search-bar {
+    display: flex;
+    background-color: #121212;
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.search-bar:focus-within {
+    border-color: var(--accent-blue);
+}
+
+.search-bar input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 8px 15px;
+    color: white;
+    outline: none;
+    font-size: 1rem;
+}
+
+.search-btn {
+    background-color: var(--bg-tertiary);
+    padding: 0 20px;
+    border-left: 1px solid var(--bg-tertiary);
+    transition: background-color 0.2s;
+}
+
+.search-btn:hover {
+    background-color: #444;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.icon-btn:hover {
+    background-color: var(--glass);
+}
+
+.profile-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .header-center {
+        display: none;
+    }
+
+    .hide-mobile {
+        display: none;
+    }
+}

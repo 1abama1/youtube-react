@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { ThumbsUp, Share2, MoreHorizontal } from 'lucide-react';
 import VideoCard from '../components/VideoCard';
+import rickRollVideo from '../assets/videos/Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster).mp4';
 import './VideoDetail.css';
 
 const RELATED_VIDEOS = [
@@ -40,7 +41,7 @@ const VideoDetail = () => {
             <div className="video-content">
                 <div className="player-wrapper">
                     <Player
-                        url={`https://www.youtube.com/watch?v=dQw4w9WgXcQ`}
+                        url={rickRollVideo}
                         className="react-player"
                         width="100%"
                         height="100%"

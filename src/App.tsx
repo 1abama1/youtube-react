@@ -8,7 +8,7 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/youtube-react">
       <div className="app-container">
         <Header />
         <div className="main-content">

@@ -2,14 +2,17 @@ import { useParams } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { ThumbsUp, Share2, MoreHorizontal } from 'lucide-react';
 import VideoCard from '../components/VideoCard';
-import rickRollVideo from '../assets/videos/Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster).mp4';
+import rickRollVideo from '../assets/videos/rickroll.mp4';
+import kamchatkaImg from '../assets/images/kamchatka_nature.png';
+import minimalistUiImg from '../assets/images/minimalist_ui.png';
+import appleProcessorImg from '../assets/images/apple_processor.png';
 import './VideoDetail.css';
 
 const RELATED_VIDEOS = [
     {
         id: '3',
         title: 'Путешествие по Камчатке: Дикая природа',
-        thumbnail: 'https://images.unsplash.com/photo-1533240332313-0dbf26453950?q=80&w=600&auto=format&fit=crop',
+        thumbnail: kamchatkaImg,
         channelTitle: 'National Geog',
         viewCount: '3.4 млн',
         publishedAt: '1 месяц назад',
@@ -17,7 +20,7 @@ const RELATED_VIDEOS = [
     {
         id: '4',
         title: 'Минимализм в дизайне интерфейсов',
-        thumbnail: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=600&auto=format&fit=crop',
+        thumbnail: minimalistUiImg,
         channelTitle: 'Дизайн Ревью',
         viewCount: '45 тыс.',
         publishedAt: '12 часов назад',
@@ -25,7 +28,7 @@ const RELATED_VIDEOS = [
     {
         id: '5',
         title: 'Обзор нового процессора от Apple',
-        thumbnail: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?q=80&w=600&auto=format&fit=crop',
+        thumbnail: appleProcessorImg,
         channelTitle: 'Гаджет Тайм',
         viewCount: '2.1 млн',
         publishedAt: '1 неделю назад',
@@ -47,6 +50,12 @@ const VideoDetail = () => {
                         height="100%"
                         controls
                         playing
+                        muted
+                        playsinline
+                        preload="metadata"
+                        onReady={() => console.log('[VideoDetail] Player Ready')}
+                        onStart={() => console.log('[VideoDetail] Video Started Playing')}
+                        onError={(e: any) => console.error('[VideoDetail] Player Error:', e)}
                     />
                 </div>
                 <h1 className="detail-title">Как создать YouTube-клон на React + TypeScript (Часть {id})</h1>

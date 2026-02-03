@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
 import VideoCard from '../components/VideoCard';
+import internetHistoryImg from '../assets/images/internet_history.png';
+import reactCodingImg from '../assets/images/react_coding.png';
 import './Feed.css'; // Reuse grid styles
 
 const SearchFeed = () => {
@@ -9,7 +11,7 @@ const SearchFeed = () => {
         {
             id: 'S1',
             title: `Результаты поиска для: ${searchTerm}`,
-            thumbnail: 'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?q=80&w=600&auto=format&fit=crop',
+            thumbnail: internetHistoryImg,
             channelTitle: 'Поиск Видео',
             viewCount: '100',
             publishedAt: 'Только что',
@@ -17,7 +19,7 @@ const SearchFeed = () => {
         {
             id: '1',
             title: 'Как создать YouTube-клон на React + TypeScript',
-            thumbnail: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=600&auto=format&fit=crop',
+            thumbnail: reactCodingImg,
             channelTitle: 'Техно Мир',
             viewCount: '1.2 млн',
             publishedAt: '2 дня назад',

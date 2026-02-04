@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import ReactPlayer from 'react-player';
 import { ThumbsUp, Share2, MoreHorizontal } from 'lucide-react';
 import VideoCard from '../components/VideoCard';
 import rickRollVideo from '../assets/videos/rickroll.mp4';
@@ -37,25 +36,22 @@ const RELATED_VIDEOS = [
 
 const VideoDetail = () => {
     const { id } = useParams();
-    const Player = ReactPlayer as any;
+    // Removed unused Player declaration
 
     return (
         <div className="video-detail-container">
             <div className="video-content">
                 <div className="player-wrapper">
-                    <Player
-                        url={rickRollVideo}
+                    <video
+                        src={rickRollVideo}
                         className="react-player"
                         width="100%"
                         height="100%"
                         controls
-                        playing
-                        muted
-                        playsinline
+                        autoPlay
+                        playsInline
                         preload="metadata"
-                        onReady={() => console.log('[VideoDetail] Player Ready')}
-                        onStart={() => console.log('[VideoDetail] Video Started Playing')}
-                        onError={(e: any) => console.error('[VideoDetail] Player Error:', e)}
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
                 </div>
                 <h1 className="detail-title">Как создать YouTube-клон на React + TypeScript (Часть {id})</h1>

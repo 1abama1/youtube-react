@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import ReactPlayer from 'react-player';
 import rickRollVideo from '../assets/videos/rickroll.mp4';
 import './VideoCard.css';
 
@@ -19,8 +18,17 @@ const VideoCard: React.FC<VideoCardProps> = ({ id, title, thumbnail, channelTitl
     const [shouldPlay, setShouldPlay] = useState(false);
     const [isVideoActive, setIsVideoActive] = useState(false);
     const hoverTimerRef = useRef<any>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
     const navigate = useNavigate();
-    const Player = ReactPlayer as any;
+
+    useEffect(() => {
+        if (shouldPlay && videoRef.current) {
+            videoRef.current.play().catch(() => { });
+        } else if (videoRef.current) {
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+        }
+    }, [shouldPlay]);
 
     useEffect(() => {
         if (isHovered) {
@@ -72,34 +80,15 @@ const VideoCard: React.FC<VideoCardProps> = ({ id, title, thumbnail, channelTitl
                     className={`thumbnail ${isVideoActive ? 'hidden' : ''}`}
                 />
                 <div className={`video-preview-wrapper ${isVideoActive ? 'visible' : ''}`}>
-                    <Player
-                        url={rickRollVideo}
-                        playing={shouldPlay}
+                    <video
+                        ref={videoRef}
+                        src={rickRollVideo}
                         muted
-                        playsinline
+                        playsInline
                         preload="metadata"
-                        width="100%"
-                        height="100%"
                         className="video-preview"
-                        onReady={() => console.log(`[VideoCard ${id}] Player Ready`)}
-                        onStart={() => {
-                            console.log(`[VideoCard ${id}] Video Started Playing`);
-                            setIsVideoActive(true);
-                        }}
-                        onError={(e: any) => console.error(`[VideoCard ${id}] Player Error:`, e)}
-                        config={{
-                            file: {
-                                attributes: {
-                                    muted: true,
-                                    playsInline: true,
-                                    style: {
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'cover'
-                                    }
-                                }
-                            }
-                        }}
+                        onPlay={() => setIsVideoActive(true)}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                 </div>
                 <span className="duration-badge">12:34</span>

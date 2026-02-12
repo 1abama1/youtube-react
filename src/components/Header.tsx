@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Search, Menu, Bell, Video, User } from 'lucide-react';
 import './Header.css';
 
-const Header = () => {
+interface HeaderProps {
+    toggleSidebar: () => void;
+}
+
+const Header = ({ toggleSidebar }: HeaderProps) => {
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
@@ -17,13 +21,12 @@ const Header = () => {
     return (
         <header className="header glass-morphism">
             <div className="header-left">
-                <button className="icon-btn">
+                <button className="icon-btn" onClick={toggleSidebar}>
                     <Menu size={24} />
                 </button>
                 <div className="logo" onClick={() => navigate('/')}>
                     <div className="logo-icon"></div>
                     <span>YouTube</span>
-                    <span className="region-tag">RU</span>
                 </div>
             </div>
 

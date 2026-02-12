@@ -1,74 +1,53 @@
+import { useEffect, useState } from 'react';
 import VideoCard from '../components/VideoCard';
+import { videos } from '../utils/mockData';
 import './Feed.css';
-import reactCodingImg from '../assets/images/react_coding.png';
-import vscodeSetupImg from '../assets/images/vscode_setup.png';
-import kamchatkaImg from '../assets/images/kamchatka_nature.png';
-import minimalistUiImg from '../assets/images/minimalist_ui.png';
-import appleProcessorImg from '../assets/images/apple_processor.png';
-import internetHistoryImg from '../assets/images/internet_history.png';
 
-const MOCK_VIDEOS = [
-    {
-        id: '1',
-        title: 'Как создать YouTube-клон на React + TypeScript',
-        thumbnail: reactCodingImg,
-        channelTitle: 'Техно Мир',
-        viewCount: '1.2 млн',
-        publishedAt: '2 дня назад',
-    },
-    {
-        id: '2',
-        title: 'Лучшие настройки VS Code в 2026 году',
-        thumbnail: vscodeSetupImg,
-        channelTitle: 'Код и Кофе',
-        viewCount: '850 тыс.',
-        publishedAt: '5 часов назад',
-    },
-    {
-        id: '3',
-        title: 'Путешествие по Камчатке: Дикая природа',
-        thumbnail: kamchatkaImg,
-        channelTitle: 'National Geog',
-        viewCount: '3.4 млн',
-        publishedAt: '1 месяц назад',
-    },
-    {
-        id: '4',
-        title: 'Минимализм в дизайне интерфейсов',
-        thumbnail: minimalistUiImg,
-        channelTitle: 'Дизайн Ревью',
-        viewCount: '45 тыс.',
-        publishedAt: '12 часов назад',
-    },
-    {
-        id: '5',
-        title: 'Обзор нового процессора от Apple',
-        thumbnail: appleProcessorImg,
-        channelTitle: 'Гаджет Тайм',
-        viewCount: '2.1 млн',
-        publishedAt: '1 неделю назад',
-    },
-    {
-        id: '6',
-        title: 'История создания интернета',
-        thumbnail: internetHistoryImg,
-        channelTitle: 'Наука Сегодня',
-        viewCount: '127 тыс.',
-        publishedAt: '3 дня назад',
-    },
-];
+interface FeedProps {
+    category?: string;
+}
 
-const Feed = () => {
+const Feed = ({ category = "home" }: FeedProps) => {
+    const [selectedCategory, setSelectedCategory] = useState(category);
+    const [videoList, setVideoList] = useState<any[]>([]);
+
+    useEffect(() => {
+        setSelectedCategory(category);
+
+        // In a real app, fetch based on category. using mock data for now.
+        // If category is specific, could filter mock data.
+        // For now, just shuffle or show same videos.
+        setVideoList(videos);
+    }, [category]);
+
     return (
         <div className="feed-container">
-            <div className="category-bar">
-                {['Все', 'Музыка', 'Игры', 'Фильмы', 'Новости', 'Спорт', 'Технологии', 'Дизайн'].map((cat) => (
-                    <button key={cat} className="category-pill">{cat}</button>
-                ))}
-            </div>
+            <h2 style={{ padding: '0 16px', color: 'white', marginBottom: '20px', textTransform: 'capitalize' }}>
+                {category === 'home' ? 'Рекомендации' : category} <span style={{ color: '#FC1503' }}>видео</span>
+            </h2>
             <div className="video-grid">
-                {MOCK_VIDEOS.map((video) => (
-                    <VideoCard key={video.id} {...video} />
+                {videoList.map((item, idx) => (
+                    <VideoCard
+                        key={idx}
+                        id={item.id.videoId}
+                        title={item.snippet.title}
+                        thumbnail={item.snippet.thumbnails.high.url}
+                        channelTitle={item.snippet.channelTitle}
+                        viewCount="1 млн" // Mock view count
+                        publishedAt="1 день назад" // Mock date
+                    />
+                ))}
+                {/* Duplicate to fill grid */}
+                {videoList.map((item, idx) => (
+                    <VideoCard
+                        key={`dup-${idx}`}
+                        id={item.id.videoId}
+                        title={item.snippet.title}
+                        thumbnail={item.snippet.thumbnails.high.url}
+                        channelTitle={item.snippet.channelTitle}
+                        viewCount="500 тыс."
+                        publishedAt="2 дня назад"
+                    />
                 ))}
             </div>
         </div>

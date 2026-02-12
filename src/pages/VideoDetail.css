@@ -8,12 +8,8 @@
 }
 
 .player-wrapper {
-    position: relative;
-    padding-top: 56.25%;
-    /* Player ratio: 100 / (16 / 9) */
-    border-radius: 12px;
-    overflow: hidden;
-    background-color: black;
+    width: 100%;
+    margin-bottom: 12px;
 }
 
 .react-player {
@@ -153,4 +149,53 @@
     .related-videos {
         width: 100%;
     }
+}
+
+/* NEW STYLES */
+.channel-avatar-large {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.subscribe-btn {
+    background-color: white;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-right: 12px;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.subscribe-btn.subscribed {
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.action-btn {
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+
+.action-btn.active {
+    background-color: #fff;
+    color: #000;
+}
+
+.action-btn.active svg {
+    fill: black;
+    stroke: black;
 }

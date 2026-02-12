@@ -1,94 +1,102 @@
-import { useParams } from 'react-router-dom';
-import { ThumbsUp, Share2, MoreHorizontal } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { videos } from '../utils/mockData';
+import { CheckCircle, ThumbsUp, ThumbsDown, UserCheck } from 'lucide-react';
 import VideoCard from '../components/VideoCard';
+import CustomPlayer from '../components/CustomPlayer';
+import { useInteraction } from '../context/InteractionContext';
 import rickRollVideo from '../assets/videos/rickroll.mp4';
-import kamchatkaImg from '../assets/images/kamchatka_nature.png';
-import minimalistUiImg from '../assets/images/minimalist_ui.png';
-import appleProcessorImg from '../assets/images/apple_processor.png';
 import './VideoDetail.css';
-
-const RELATED_VIDEOS = [
-    {
-        id: '3',
-        title: 'Путешествие по Камчатке: Дикая природа',
-        thumbnail: kamchatkaImg,
-        channelTitle: 'National Geog',
-        viewCount: '3.4 млн',
-        publishedAt: '1 месяц назад',
-    },
-    {
-        id: '4',
-        title: 'Минимализм в дизайне интерфейсов',
-        thumbnail: minimalistUiImg,
-        channelTitle: 'Дизайн Ревью',
-        viewCount: '45 тыс.',
-        publishedAt: '12 часов назад',
-    },
-    {
-        id: '5',
-        title: 'Обзор нового процессора от Apple',
-        thumbnail: appleProcessorImg,
-        channelTitle: 'Гаджет Тайм',
-        viewCount: '2.1 млн',
-        publishedAt: '1 неделю назад',
-    },
-];
 
 const VideoDetail = () => {
     const { id } = useParams();
-    // Removed unused Player declaration
+    const [videoDetail, setVideoDetail] = useState<any>(null);
+    const [relatedVideos, setRelatedVideos] = useState<any[]>([]);
+
+    const { toggleLike, isLiked, toggleSubscribe, isSubscribed } = useInteraction();
+
+    useEffect(() => {
+        const foundVideo = videos.find(v => v.id.videoId === id) || videos[0];
+        setVideoDetail(foundVideo);
+        setRelatedVideos(videos);
+    }, [id]);
+
+    if (!videoDetail?.snippet) return <div>Загрузка...</div>;
+
+    const { snippet: { title, channelId, channelTitle, description }, id: { videoId } } = videoDetail;
+    const liked = isLiked(videoId);
+    const subscribed = isSubscribed(channelId);
 
     return (
-        <div className="video-detail-container">
+        <div className="video-detail-container" style={{ minHeight: '95vh', padding: '20px' }}>
             <div className="video-content">
                 <div className="player-wrapper">
-                    <video
-                        src={rickRollVideo}
-                        className="react-player"
-                        width="100%"
-                        height="100%"
-                        controls
-                        autoPlay
-                        playsInline
-                        preload="metadata"
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    />
+                    <CustomPlayer src={rickRollVideo} autoPlay={true} />
                 </div>
-                <h1 className="detail-title">Как создать YouTube-клон на React + TypeScript (Часть {id})</h1>
+                <h5 className="detail-title">
+                    {title}
+                </h5>
                 <div className="video-meta">
-                    <div className="channel-info">
-                        <div className="channel-avatar">Т</div>
-                        <div className="channel-details">
-                            <h4 className="channel-name-detail">Техно Мир</h4>
-                            <p className="subscriber-count">1.4 млн подписчиков</p>
+                    <Link to={`/channel/${channelId}`} style={{ textDecoration: 'none' }}>
+                        <div className="channel-info">
+                            <div className="channel-avatar-large">
+                                {channelTitle.charAt(0)}
+                            </div>
+                            <div className="channel-details">
+                                <h6 className="channel-name-detail" style={{ color: '#fff', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                    {channelTitle}
+                                    <CheckCircle size={14} color="gray" />
+                                </h6>
+                                <span className="subscriber-count">1.2 млн подписчиков</span>
+                            </div>
                         </div>
-                        <button className="subscribe-btn">Подписаться</button>
-                    </div>
+                    </Link>
                     <div className="video-actions">
-                        <button className="action-btn"><ThumbsUp size={20} /> 125К</button>
-                        <button className="action-btn"><Share2 size={20} /> Поделиться</button>
-                        <button className="action-btn hide-mobile"><MoreHorizontal size={20} /></button>
+                        <button
+                            className={`subscribe-btn ${subscribed ? 'subscribed' : ''}`}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                toggleSubscribe(channelId);
+                            }}
+                        >
+                            {subscribed ? (
+                                <>
+                                    <UserCheck size={18} style={{ marginRight: '5px' }} /> Вы подписаны
+                                </>
+                            ) : (
+                                <>
+                                    Подписаться
+                                </>
+                            )}
+                        </button>
+                        <button
+                            className={`action-btn ${liked ? 'active' : ''}`}
+                            onClick={() => toggleLike(videoId)}
+                        >
+                            <ThumbsUp size={20} fill={liked ? "white" : "none"} />
+                            {liked ? "Вам понравилось" : "Нравится"}
+                        </button>
+                        <button className="action-btn">
+                            <ThumbsDown size={20} />
+                        </button>
                     </div>
                 </div>
-                <div className="video-description glass-morphism">
-                    <p className="description-text">
-                        В этом видео мы разберем основные принципы создания современных интерфейсов на React.
-                        Мы изучим, как использовать TypeScript для повышения надежности кода и Vite для быстрой сборки.
-                        #react #typescript #webdev
-                    </p>
-                </div>
-                <div className="comments-section">
-                    <h3>142 комментария</h3>
-                    <div className="add-comment">
-                        <div className="user-avatar-small">A</div>
-                        <input type="text" placeholder="Введите комментарий..." />
-                    </div>
+                <div className="video-description">
+                    <p className="description-text">{description}</p>
                 </div>
             </div>
+
             <div className="related-videos">
-                <h3 className="section-title">Похожие видео</h3>
-                {RELATED_VIDEOS.map((video) => (
-                    <VideoCard key={video.id} {...video} />
+                {relatedVideos.map((item, idx) => (
+                    <VideoCard
+                        key={idx}
+                        id={item.id.videoId}
+                        title={item.snippet.title}
+                        thumbnail={item.snippet.thumbnails.high.url}
+                        channelTitle={item.snippet.channelTitle}
+                        viewCount="100 тыс."
+                        publishedAt="1 день назад"
+                    />
                 ))}
             </div>
         </div>

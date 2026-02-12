@@ -30,7 +30,11 @@
     padding: 10px 12px;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.sidebar-item:active {
+    transform: scale(0.98);
 }
 
 .sidebar-item:hover {
@@ -56,6 +60,24 @@
     border: none;
     border-top: 1px solid var(--bg-tertiary);
     margin: 12px 0;
+}
+
+/* Collapsed state styles */
+.sidebar.collapsed {
+    width: 72px;
+    padding: 8px;
+}
+
+.sidebar.collapsed .sidebar-text,
+.sidebar.collapsed .section-title,
+.sidebar.collapsed .sidebar-divider {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-item {
+    justify-content: center;
+    padding: 12px 0;
+    gap: 0;
 }
 
 @media (max-width: 1200px) {

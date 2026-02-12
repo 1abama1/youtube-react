@@ -16,11 +16,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .video-card:hover .thumbnail {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .thumbnail.hidden {
@@ -78,6 +78,13 @@
     justify-content: center;
     font-weight: 600;
     color: var(--text-secondary);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.channel-avatar:hover {
+    transform: scale(1.1);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 .video-text {
@@ -103,6 +110,52 @@
 }
 
 .video-stats {
-    font-size: 0.85rem;
     color: var(--text-secondary);
+}
+
+.more-options-container {
+    position: relative;
+}
+
+.more-options-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    margin-top: 12px;
+}
+
+.more-options-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 8px 0;
+    width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    width: 100%;
+    text-align: left;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: var(--bg-tertiary);
 }
